@@ -1,0 +1,103 @@
+﻿@model CategoryAjax.ViewModels.CategoryViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout=null;
+}
+
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return JQueryAjaxPost(this);" autocomplete="off"  enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <input type="hidden" asp-for="Id" class="form-control"  />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label"></label>
+                        <input asp-for="CategoryName" class="form-control" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CategoryPicture" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="CategoryPicture" class="custom-file-input" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="CategoryPicture" class="text-danger"></span>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CreatedBy" class="control-label"></label>
+                        <input asp-for="CreatedBy" class="form-control" />
+                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ModifiedBy" class="control-label"></label>
+                        <input asp-for="ModifiedBy" class="form-control" />
+                        <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CreatedTime" class="control-label"></label>
+                        <input asp-for="CreatedTime" class="form-control" />
+                        <span asp-validation-for="CreatedTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ModifiedTime" class="control-label"></label>
+                        <input asp-for="ModifiedTime" class="form-control" />
+                        <span asp-validation-for="ModifiedTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+// Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+

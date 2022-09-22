@@ -1,0 +1,85 @@
+﻿
+@model IEnumerable<CategoryAjax.Models.Category>
+
+
+<table class="table table-borderd table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfilePicture)
+            </th>
+            <th> 
+                <a onclick="ShowInPopup('@Url.Action("AddOrEdit","Category",null,Context.Request.Scheme)', ' New Category ')" class="btn btn-success text-white">Create New Category</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy)
+                </td>
+                <td>
+                    @{
+                        string value = item.CreatedTime.ToString("hh: mm tt");
+                    }
+                    @Html.DisplayFor(modelItem => value)
+                </td>
+
+
+                <td>
+                    @{
+                        string value1 = item.ModifiedTime.ToString("hh: mm tt");
+                    }
+                    @Html.DisplayFor(modelItem => value1)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CategoryId">
+                        <img src="@FileLocation.RetriveFileFromFolder@item.ProfilePicture" class="img-thumbnail" height="100" width="100" asp-append-version="true" />
+                    </a>
+                </td>
+
+                <td>
+                    
+                        <a onclick="ShowInPopup('@Url.Action("AddOrEdit","Category",new { id=item.CategoryId},Context.Request.Scheme)', 'Update Category')" class="btn btn-info">Edit</a>
+
+                        <form asp-action="Delete" asp-route-id="@item.CategoryId" onsubmit="return JQueryAjaxDelete(this)" class="d-inline">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                  
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
